@@ -136,7 +136,7 @@ if (toggle) {
 }
 
 // ---------- SLIDES ----------
-const slides = ["slides/1.jpg", "slides/2.png", "slides/3.png"];
+const slides = ["slides/1.jpg", "slides/2.jpg", "slides/3.jpg"];
 const captions = [
   "A little moment I like 🌸",
   "This one always makes me smile ✨",
@@ -281,4 +281,5 @@ function enableTouchDrag(piece) {
     piece.touchId = null;
   });
 }
+
 
