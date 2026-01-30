@@ -13,6 +13,13 @@
 }
 
 /* ---------- GLOBAL ---------- */
+  :root {
+  --pink: #ff9acb;
+  --lavender: #d6c9ff;
+  --bg-dark: #1a1435;
+  --card-bg: #2c245c;
+  --pz: 300px;
+}
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
@@ -139,7 +146,8 @@ button:active {
   touch-action: none;
 }
 #puzzle {
-  width: min(90vw, 300px);
+  width: var(--pz);
+  height: var(--pz);
   aspect-ratio: 1 / 1;
   border-radius: 24px;
   background: linear-gradient(145deg, #3b2f6b, #241c45);
@@ -159,12 +167,11 @@ button:active {
   justify-content: center;
 }
 
-
 .piece {
-  width: calc(min(90vw, 300px) / 3);
-  height: calc(min(90vw, 300px) / 3);
+  width: calc(var(--pz) / 3);
+  height: calc(var(--pz) / 3);
   background-image: url("puzzle.png");
-  background-size: min(90vw, 300px) min(90vw, 300px);
+  background-size: var(--pz) var(--pz);
   border-radius: 14px;
   cursor: grab;
   box-shadow: 0 10px 25px rgba(0,0,0,0.5);
@@ -472,4 +479,14 @@ body::after {
 
 .puzzle-piece:active {
   cursor: grabbing;
+}
+
+@media (max-width: 600px) {
+  #puzzle-container {
+    flex-direction: column;
+  }
+
+  #pieces {
+    max-width: 100%;
+  }
 }
