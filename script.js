@@ -68,7 +68,10 @@ function initPuzzle() {
   }
 
   pieces.sort(() => Math.random() - 0.5);
-  pieces.forEach(p => piecesContainer.appendChild(p));
+  pieces.forEach(p => {
+  piecesContainer.appendChild(p);
+  enableTouchDrag(p); // <-- ADD THIS
+  });
 }
 
 function checkPuzzleComplete() {
@@ -250,28 +253,35 @@ giftBox.onclick = () => {
     setTimeout(initPuzzle, 50);
   }, 3000);
 };
-let activePiece = null;
-let offsetX = 0;
-let offsetY = 0;
 
-document.querySelectorAll(".puzzle-piece").forEach(piece => {
-  piece.addEventListener("pointerdown", e => {
-    activePiece = piece;
-    const rect = piece.getBoundingClientRect();
-    offsetX = e.clientX - rect.left;
-    offsetY = e.clientY - rect.top;
-    piece.setPointerCapture(e.pointerId);
+/* ---------- TOUCH SUPPORT FOR PUZZLE ---------- */
+
+function enableTouchDrag(piece) {
+  piece.addEventListener("touchstart", e => {
+    e.preventDefault();
+    piece.classList.add("dragging");
+    piece.touchId = e.changedTouches[0].identifier;
   });
-});
 
-window.addEventListener("pointermove", e => {
-  if (!activePiece) return;
-  activePiece.style.left = `${e.clientX - offsetX}px`;
-  activePiece.style.top  = `${e.clientY - offsetY}px`;
-});
+  piece.addEventListener("touchmove", e => {
+    const touch = [...e.changedTouches].find(
+      t => t.identifier === piece.touchId
+    );
+    if (!touch) return;
 
-window.addEventListener("pointerup", () => {
-  activePiece = null;
-});
+    const el = document.elementFromPoint(touch.clientX, touch.clientY);
+    if (el && el.classList.contains("slot")) {
+      el.appendChild(piece);
+      checkPuzzleComplete();
+    }
+  });
+
+  piece.addEventListener("touchend", () => {
+    piece.classList.remove("dragging");
+    piece.touchId = null;
+  });
+}
+
+
 
 
