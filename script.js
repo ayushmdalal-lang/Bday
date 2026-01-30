@@ -255,11 +255,11 @@ giftBox.onclick = () => {
 };
 
 /* ---------- TOUCH SUPPORT FOR PUZZLE ---------- */
-
 function enableTouchDrag(piece) {
+  let targetSlot = null;
+
   piece.addEventListener("touchstart", e => {
     e.preventDefault();
-    piece.classList.add("dragging");
     piece.touchId = e.changedTouches[0].identifier;
   });
 
@@ -271,16 +271,20 @@ function enableTouchDrag(piece) {
 
     const el = document.elementFromPoint(touch.clientX, touch.clientY);
     if (el && el.classList.contains("slot")) {
-      el.appendChild(piece);
-      checkPuzzleComplete();
+      targetSlot = el;
     }
   });
 
   piece.addEventListener("touchend", () => {
-    piece.classList.remove("dragging");
+    if (targetSlot) {
+  if (targetSlot.firstChild && targetSlot.firstChild !== piece) {
+    document.getElementById("pieces").appendChild(targetSlot.firstChild);
+  }
+  targetSlot.appendChild(piece);
+  checkPuzzleComplete();
+}
+
+    targetSlot = null;
     piece.touchId = null;
   });
 }
-
-
-
