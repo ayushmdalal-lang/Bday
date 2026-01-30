@@ -234,8 +234,8 @@ button:active {
 
 /* ---------- SLIDES ---------- */
 #slideImg {
-  width: min(90vw, 340px);
-  height: min(90vw, 340px);
+   width: min(90vw, 90vmin, 320px);
+   aspect-ratio: 1 / 1;
   border-radius: 26px;
   object-fit: cover;
   margin-top: 20px;
@@ -460,6 +460,8 @@ body::after {
   user-select: none;
 }
 .puzzle-piece {
+  width: 100%;
+  height: 100%;
   position: absolute;
   touch-action: none;        
   user-select: none;
