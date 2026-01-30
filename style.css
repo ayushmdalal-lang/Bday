@@ -14,7 +14,7 @@ body {
   background: radial-gradient(circle at top, #3b2f6b, var(--bg-dark));
   color: #f6f6ff;
   text-align: center;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 /* floating sparkles */
@@ -42,10 +42,10 @@ h1, h2 {
 
 /* ---------- BUTTONS ---------- */
 button {
-  padding: 14px 30px;
+  padding: 16px 32px;
   border-radius: 999px;
   border: none;
-  font-size: 16px;
+  font-size: clamp(1rem, 4vw, 1.1rem);
   cursor: pointer;
   color: #fff;
   background: linear-gradient(135deg, var(--pink), var(--lavender));
@@ -79,9 +79,13 @@ button:active {
 .screen {
   display: none;
   min-height: 100svh;
-  padding-top: 12vh;
+  padding: 20px;
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
   animation: screenIn 0.8s ease;
 }
+
 
 .screen.active {
   display: block;
@@ -105,12 +109,12 @@ button:active {
 }
 
 #screen1 h1 {
-  font-size: 4rem;
+  font-size: clamp(2.5rem, 6vw, 4rem);  
   margin-bottom: 15px;
 }
 
 #screen1 p {
-  font-size: 1.25rem;
+  font-size: clamp(1rem, 4vw, 1.25rem);
   opacity: 0.9;
   margin-bottom: 40px;
 }
@@ -125,8 +129,8 @@ button:active {
 }
 
 #puzzle {
-  width: 300px;
-  height: 300px;
+  width: min(90vw, 300px);
+  height: min(90vw, 300px);
   border-radius: 24px;
   background: linear-gradient(145deg, #3b2f6b, #241c45);
   display: grid;
@@ -144,10 +148,10 @@ button:active {
 }
 
 .piece {
-  width: 100px;
-  height: 100px;
+  width: calc(min(90vw, 300px) / 3);
+  height: calc(min(90vw, 300px) / 3);
   background-image: url("puzzle.png");
-  background-size: 300px 300px;
+  background-size: min(90vw, 300px) min(90vw, 300px);
   border-radius: 14px;
   cursor: grab;
   box-shadow: 0 10px 25px rgba(0,0,0,0.5);
@@ -215,8 +219,8 @@ button:active {
 
 /* ---------- SLIDES ---------- */
 #slideImg {
-  width: 340px;
-  height: 340px;
+  width: min(90vw, 340px);
+  height: min(90vw, 340px);
   border-radius: 26px;
   object-fit: cover;
   margin-top: 20px;
@@ -230,8 +234,10 @@ button:active {
 }
 
 #slideText {
-  margin-top: 18px;
+  margin-top: 16px;
+  padding: 0 12px;
   font-size: 1rem;
+  line-height: 1.5;
   color: #ffd6f0;
   animation: textFade 0.6s ease;
 }
@@ -341,10 +347,12 @@ body::after {
 
 /* ---------- TEXT ---------- */
 #brainText {
-  margin-top: 12px;
+  margin-top: 10px;
   color: white;
   font-size: 1.1rem;
   opacity: 0;
+  text-align: center;
+  max-width: 90%;
   transition: opacity 0.6s ease;
 }
 
@@ -384,12 +392,14 @@ body::after {
 
 /* ---------- BRAIN POP ---------- */
 #brainImg {
-  position: absolute;
+  position: relative;
   width: 220px;
+  margin-bottom: 16px;
   opacity: 0;
   transform: scale(0.4);
   transition: transform 0.7s ease, opacity 0.7s ease;
 }
+
 
 /* Brain visible */
 #giftOverlay.reveal #brainImg {
@@ -433,12 +443,6 @@ body::after {
 .puzzle-piece {
   touch-action: none;
   user-select: none;
-}
-body {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 .puzzle-piece {
   position: absolute;
