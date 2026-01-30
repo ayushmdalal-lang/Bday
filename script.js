@@ -281,7 +281,3 @@ function enableTouchDrag(piece) {
     piece.touchId = null;
   });
 }
-
-
-
-
